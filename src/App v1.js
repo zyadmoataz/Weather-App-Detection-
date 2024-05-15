@@ -33,19 +33,19 @@ function formatDay(dateStr) {
 }
 
 class App extends React.Component {
-  //we can use class fields feature in which we can declare properties directly on a component instance, outside any method
-  //no this keyword as it will be placed on the component instance
-  // and since this keyword is also a component instance, then we dont need this anymore
-  state = {
-    location: "",
-    isLoading: false,
-    displayLocation: "",
-    weather: {},
-  };
+  constructor(props) {
+    //   to add hooks we must use constructor function
+    super(props);
+    this.state = {
+      location: "Cairo",
+      isLoading: false,
+      displayLocation: "",
+      weather: {},
+    };
+    this.fetchWeather = this.fetchWeather.bind(this);
+  }
 
-  //we can use arrow function as it doesnt have it own this keyword and it get acces to the surrounding one
-  fetchWeather = async () => {
-    if (this.state.location.length < 2) return this.setState({ weather: {} });
+  async fetchWeather() {
     try {
       this.setState({ isLoading: true }); //we can override it instead of making new object and destructure the old one
       // 1) Getting location (geocoding)
@@ -70,44 +70,28 @@ class App extends React.Component {
       const weatherData = await weatherRes.json();
       this.setState({ weather: weatherData.daily });
     } catch (err) {
-      console.error(err);
+      console.err(err);
     } finally {
       this.setState({ isLoading: false });
     }
-  };
-
-  //child to parent communication
-  handleLocation = (e) => {
-    this.setState({ location: e.target.value });
-  };
-
-  //lifecylce methods are special methods that all react components get access to
-  //it also can run to use side effects at different points of the component lifecycle
-  //most important points of lifecylce are mouting redrendering and unmounting of the component
-  //its not as use effect but close to it
-  //1- componentDidMount called immediately after the dom has been created like use effect hook with empty dependency array []
-  componentDidMount() {
-    // this.fetchWeather();
-    this.setState({ location: localStorage.getItem("location") || "" }); //empty string for the first time
   }
-
-  //2- componentDidUpdate react gives it acces to the previous state and props like use effect hook with some variables [...]
-  //this method only get called in rerender not in mount
-  componentDidUpdate(previousProps, previousState) {
-    if (this.state.location !== previousState.location) {
-      this.fetchWeather(); //this will make it rerender in each character we type in
-      localStorage.setItem("location", this.state.location);
-    }
-  }
-
   render() {
     return (
       <div className="app">
         <h1>Classy Weather</h1>
-        <InputField
-          location={this.state.location}
-          onChangeLocation={this.handleLocation}
-        />
+        <div>
+          <input
+            type="text"
+            placeholder="Search For Location ..."
+            value={this.state.location}
+            onChange={(e) => {
+              this.setState({ location: e.target.value });
+              //in this event handler function we didnt manually bind this keyword
+              //we only have to do that when we define the handler as an outside method
+            }}
+          />
+        </div>
+        <button onClick={this.fetchWeather}>Get Weather</button>
         {this.state.isLoading && <p className="loader">Loading...</p>}
         {this.state.weather.weathercode && (
           <Weather
@@ -122,29 +106,7 @@ class App extends React.Component {
 
 export default App;
 
-//child to parent communication
-class InputField extends React.Component {
-  render() {
-    return (
-      <div>
-        <input
-          type="text"
-          placeholder="Search For Location ..."
-          value={this.props.location}
-          onChange={this.props.onChangeLocation}
-        />
-      </div>
-    );
-  }
-}
-
 class Weather extends React.Component {
-  //3- componentWillUnmount similar to returing a cleanup function from effect function
-  //difference that this one runs after component unmounts, after it disappeared and destroyed, not between renders
-  componentWillUnmount() {
-    console.log("Unmounts");
-  }
-
   render() {
     //destructure props in each method manually
     console.log(this.props);
