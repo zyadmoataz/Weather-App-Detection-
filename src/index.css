@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap");
 
 * {
   margin: 0;
@@ -89,4 +89,185 @@ input:focus {
 .loader {
   font-size: 2.4rem;
   font-weight: 700;
+} */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+@import url("https://fonts.googleapis.com/css2?family=Monoton&family=Quicksand:wght@500;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 2.4rem;
+  /* font-family: "Quicksand", sans-serif; */
+  font-family: "Quicksand", "Noto Color Emoji", sans-serif;
+  background: linear-gradient(to right, #fff5e1, #ffe5b4);
+  color: #6b3e26;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.header,
+.footer {
+  width: 100%;
+  text-align: center;
+  background-color: #ff6f00;
+  color: whitesmoke;
+  padding: 1.5rem 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.header {
+  text-align: center;
+  /* font-family: "Monoton"; 
+  */
+  font-family: "Raleway", sans-serif;
+  font-size: 5rem;
+  text-transform: uppercase;
+  padding: 2rem;
+}
+
+.footer {
+  background-color: #d35400;
+}
+
+h1 {
+  text-align: center;
+  color: #ff6f00;
+  font-size: 3rem;
+  text-transform: capitalize;
+  margin-bottom: 2rem;
+}
+
+input {
+  padding: 1.5rem 3rem;
+  border-radius: 5rem;
+  border: 1px solid #ff6f00;
+  font-size: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 5rem;
+}
+
+button {
+  background-color: #ff6f00;
+  color: white;
+  border: none;
+  border-radius: 5rem;
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ff8c00;
+}
+
+.loader {
+  font-size: 1.8rem;
+  color: #ff8c00;
+}
+
+.weather {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.day {
+  background-color: #ffe0b2;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 150px;
+}
+
+.day span {
+  font-size: 2rem;
+}
+
+.day p {
+  margin: 0.5rem 0;
+  font-size: 1.6rem;
+}
+
+.day strong {
+  font-size: 1.8rem;
+}
+
+@media (max-width:1200px) {
+  .header {
+    font-size: 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    font-size: 2.5rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+
+
+  .weather {
+    flex-direction: column;
+  }
+
+  .day {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    font-size: 2.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+
+  button {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.6rem;
+  }
+
+  .day p,
+  .day strong {
+    font-size: 1.4rem;
+  }
 }
